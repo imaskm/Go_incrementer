@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goapp
+  namespace: ashwani
+  labels:
+    name: goapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: goapp
+  template:
+    metadata:
+      labels:
+        name: goapp
+    spec:
+      containers:
+      - name: goapp
+        image: imaskm/zero:latest 
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8000
+            name: goappport
+        env:
+        - name: REDIS_DEMO_ADDR
+          value: "redis:6379"
+        - name: APP_DEMO_ADDR
+          value: "0.0.0.0:8000"
+
+    
+        

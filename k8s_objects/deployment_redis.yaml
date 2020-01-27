@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: ashwani
+  labels:
+    name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      db: redis
+  template:
+    metadata:
+      labels:
+        db: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:latest
+        command:
+        - redis-server  
+        - "--appendonly yes"
+        volumeMounts:
+        - mountPath: /data
+          name: data  
+        ports:
+          - containerPort: 6379
+            name: redisport 
+      volumes:
+      - name: data
+        hostPath:
+          path: /data
+          type: DirectoryOrCreate
+        
