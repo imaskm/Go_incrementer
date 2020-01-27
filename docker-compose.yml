@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+    app:
+        container_name: app
+        build: .
+        image: zero:latest
+        networks: 
+            - zero
+        ports: 
+          - "8000:8000"
+        depends_on:
+            - redis
+        environment: 
+            DEMO_APP_ADDR: 0.0.0.0:8000
+            DEMO_REDIS_ADDR: redis:6379
+    redis:
+        container_name: redis
+        image: redis
+        networks: 
+            - zero
+        volumes: 
+            - "${PWD}/data:/data"
+        command: "redis-server --appendonly yes"
+
+networks:
+    zero:
+        
+        

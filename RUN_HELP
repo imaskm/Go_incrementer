@@ -1,0 +1,19 @@
+Running app just using docker containers:
+
+- create a network 
+  docker network create network_name
+- Run redis server image in the "network" created above and bind the volume /data to host directory
+  docker run --name redis --network network_name -v host_dir:/data -d redis redis-server --appendonly yes
+
+- Build docker image of golang app
+  docker build -t image:tag .
+
+- Run docker image and map the port 8000 to host and in same network created above 
+  docker run -d -p 8000:8000 --network=zero zero:1
+
+
+Running app using docker compose
+  
+    Go to project's home directory and run
+    docker-compose up -d --build
+    access app on 0.0.0.0:8000
