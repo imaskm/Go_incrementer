@@ -40,3 +40,20 @@
         curl -L --fail https://github.com/docker/compose/releases/download/1.25.3/run.sh -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
     args:
       warn: no   
+  
+  - name: copying Docker-compose yaml to hosts /etc/demo
+    shell: |
+      mkdir -p /etc/demo/
+    copy:
+      src: ../docker-compose.yaml 
+      dest: /etc/demo-ops/docker-compose.yaml
+  
+  - name: running compose file
+    shell: |
+      cd /etc/hosts
+      docker-compose down
+      docker-compose up
+    args:
+      warn: no
+    
+

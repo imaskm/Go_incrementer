@@ -1,9 +1,9 @@
 version: "3.5"
 services:
-    app:
+    app:  
         container_name: app
-        build: .
-        image: zero:latest
+        restart: always
+        image: imaskm/zero:latest
         networks: 
             - zero
         ports: 
@@ -16,6 +16,7 @@ services:
     redis:
         container_name: redis
         image: redis
+        restart: always
         networks: 
             - zero
         volumes: 
