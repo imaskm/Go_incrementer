@@ -1,0 +1,21 @@
+sudo apt-add-repository ppa:ansible/ansible
+
+sudo apt update -y
+
+sudo apt install ansible
+
+sudo vim /etc/ansible/hosts
+    [servers]
+        server1 ansible_host=ip_server ansible_ssh_user=user ansible_ssh_pass=""
+
+    [servers:vars]
+        ansible_python_interpreter=/usr/bin/python3
+    
+ssh-copy-id user_server1@server1_ip
+      
+ansible all -m ping -u user
+
+#-----------------------------
+#docker
+pip3 install docker
+pip3 install docker-compose

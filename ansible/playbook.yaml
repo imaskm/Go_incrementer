@@ -1,0 +1,42 @@
+# 10.3.201.66
+- hosts: all
+  remote_user: vormetric
+  become: yes
+  become_method: sudo
+  
+  tasks:
+  - name: change hostname in /etc/hosts file
+    replace:
+        path: /etc/hosts
+        regexp: "cckm"
+        replace: "demo-ops"
+  - name: change hostname
+    hostname: 
+        name: demo-ops
+  - name: add user demo 
+    user:
+        name: demo
+        password: "$6$rounds=656000$CdNnlWOAlIxwHETG$q0uLNaD7aZ.jNu337njsVm2Q4AL8RZDPq5h6NBm1iqJVZEgz9nSSx9QM32cDORCp6eqxG.ju6QrM5/I2o4xkj0"
+  - name: set timezone to Asia/kolkata
+    timezone:
+        name: Asia/Kolkata        
+  - name: Add Docker GPG key
+    apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+
+  - name: Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable
+      update_cache: no
+
+  - name: Install list of packages
+    apt:
+      name: ['apt-transport-https','ca-certificates','curl','software-properties-common','docker-ce']
+      state: present
+      update_cache: no
+   
+  - name: Install Docker-compose
+    shell: |
+        rm -fr /usr/local/bin/docker-compose  /usr/bin/docker-compose
+        curl -L --fail https://github.com/docker/compose/releases/download/1.25.3/run.sh -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    args:
+      warn: no   
