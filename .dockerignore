@@ -1,2 +1,7 @@
 data/
 README.md
+ansible/
+vagrant/
+kubernetes_objects/
+
+

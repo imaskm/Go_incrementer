@@ -1,6 +1,12 @@
 #!/bin/bash 
 set +x
+sudo su
 
+if [ $? != 0 ] 
+then 
+    echo "This script needs sudo access"; 
+    exit; 
+fi;
 
 check_vbox(){
 

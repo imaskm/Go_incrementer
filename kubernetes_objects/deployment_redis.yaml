@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
-  namespace: ashwani
+  namespace: demo-ops
   labels:
     name: redis
 spec:
@@ -18,6 +18,7 @@ spec:
       containers:
       - name: redis
         image: redis:latest
+        imagePullPolicy: Always
         command:
         - redis-server  
         - "--appendonly yes"

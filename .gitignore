@@ -1,3 +1,4 @@
 demo.bin
 data/
 kube*yaml
+vagrant/.vagrant/

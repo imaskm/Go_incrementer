@@ -16,6 +16,7 @@
   - name: add user demo 
     user:
         name: demo
+        # replace this password with your password. this is encrypted form of "demozero"
         password: "$6$rounds=656000$CdNnlWOAlIxwHETG$q0uLNaD7aZ.jNu337njsVm2Q4AL8RZDPq5h6NBm1iqJVZEgz9nSSx9QM32cDORCp6eqxG.ju6QrM5/I2o4xkj0"
   - name: set timezone to Asia/kolkata
     timezone:
@@ -28,7 +29,7 @@
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable
       update_cache: no
 
-  - name: Install list of packages
+  - name: Install packages required
     apt:
       name: ['apt-transport-https','ca-certificates','curl','software-properties-common','docker-ce']
       state: present
@@ -41,18 +42,19 @@
     args:
       warn: no   
   
-  - name: copying Docker-compose yaml to hosts /etc/demo
-    shell: |
-      mkdir -p /etc/demo/
+  - name: copying Docker-compose yaml to hosts /etc/demo      
     copy:
       src: ../docker-compose.yaml 
-      dest: /etc/demo-ops/docker-compose.yaml
+      dest: /etc/docker-compose.yaml
   
   - name: running compose file
     shell: |
-      cd /etc/hosts
+      mkdir -p /etc/demo/
+      mv /etc/docker-compose.yaml /etc/demo/docker-compose.yaml
+      cd /etc/demo/
       docker-compose down
-      docker-compose up
+      docker-compose pull
+      docker-compose up -d
     args:
       warn: no
     
