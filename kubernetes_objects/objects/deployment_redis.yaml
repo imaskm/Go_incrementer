@@ -9,11 +9,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      db: redis
+      name: redis
   template:
     metadata:
       labels:
-        db: redis
+        name: redis
     spec:
       containers:
       - name: redis

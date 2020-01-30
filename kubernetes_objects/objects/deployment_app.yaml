@@ -23,23 +23,18 @@ spec:
           - containerPort: 8000
             name: goappport
         env:
-        - name: REDIS_DEMO_ADDR
+        - name: DEMO_REDIS_ADDR
           value: "redis:6379"
-        - name: APP_DEMO_ADDR
-          value: "0.0.0.0:8000"
+        - name: DEMO_APP_ADDR
+          value: "0.0.0.0:8000"                   
         resources:
           requests:
-            cpu: 250m
-            memory: 20Mi 
-        command:
-
+            cpu: 100m
+            memory: 100Mi 
         livenessProbe:
-          exec: 
+          exec:
             command:
-              - netstat -plant | grep "8000"
-            path: ''
-            port: 8000
-        
+              - netstat -plant | grep 8000
 
-    
+              
         

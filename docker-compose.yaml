@@ -10,6 +10,9 @@ services:
           - "8000:8000"
         depends_on:
             - redis
+        logging:
+            options:
+                max-size: 50m
         environment: 
             DEMO_APP_ADDR: 0.0.0.0:8000
             DEMO_REDIS_ADDR: redis:6379

@@ -8,8 +8,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 6379
-    protocol: TCP
-    targetPort: goappport
+  - port: 8000
+    targetPort: 8000
   selector:
     name: goapp

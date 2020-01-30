@@ -3,13 +3,11 @@ kind: Service
 metadata:
   name: redis
   namespace: demo-ops
-  labels:
-    app: redis
 spec:
   type: ClusterIP
   ports:
   - port: 6379
     protocol: TCP
-    targetPort: redisport
+    targetPort: 6379
   selector:
     name: redis

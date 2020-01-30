@@ -11,9 +11,35 @@ Running app just using docker containers:
 - Run docker image and map the port 8000 to host and in same network created above 
   docker run -d -p 8000:8000 --network=zero zero:1
 
+---------------------------------------------------------
 
 Running app using docker compose
   
     Go to project's home directory and run
     docker-compose up -d --build
     access app on 0.0.0.0:8000
+
+-------------------------------------------------------
+Running vagrant
+
+   cd into vagrant directory and run vagrant script.
+
+----------------------------------------------
+
+Running Ansible:
+cd into ansible/ directory
+   
+Read instructions in setup_control_node to set up ansible and set hosts
+Run ansible-playbook playbook.yaml
+access the application using hosts ips and port 8000   
+   
+-----------------------------------------------------------------------
+
+Running Kubernetes:
+
+#install kubernetes and all dependencies
+#set cluster
+cd into kubernetes_objects/
+run "kubectl apply -f namespace.yaml" and kubectl apply -f objects/
+access application using kubernetes cluster's ip and nodeport of go-app service
+
